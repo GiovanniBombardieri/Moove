@@ -33,7 +33,31 @@ class User {
         this.vehicleBookedId = vehicleBookedId;
     }
     bookVehicle(vehicle) {
-        console.log(`Congratulations! The ${vehicle.type} is now booked for you! Enjoy you ride`);
+        if (vehicle.state === "Not Avaible") {
+            console.log(`Sorry ${this.name}, the ${vehicle.type} is not avaible now. Let's try somethings else.`);
+        }
+        else {
+            console.log(`Congratulations, ${this.name}! The ${vehicle.type} is now booked for you! Enjoy you ride!`);
+            vehicle.assignUser({
+                name: this.name,
+                surname: this.surname,
+                email: this.email,
+                preferredPaymentMethod: this.preferredPaymentMethod,
+                vehicleBookedId: this.vehicleBookedId,
+                bookVehicle(vehicle) { },
+                returnVehicle(vehicle) { },
+            });
+        }
+    }
+    returnVehicle(vehicle) {
+        if (!this.vehicleBookedId.includes(vehicle.uniqueId)) {
+            console.log(`Sorry, ${this.name}, you do not have ${vehicle.type} among those you have reserved.`);
+        }
+        else {
+            vehicle.state = "Avaible";
+            this.vehicleBookedId.pop();
+            console.log(`Thanks, ${this.name} for returning the ${vehicle.type}. Hope to see you again soon!`);
+        }
     }
 }
 class City {
@@ -133,3 +157,12 @@ const Naples = new City("Milan", [
         assignUser(user) { },
     },
 ]);
+console.log(Brescia);
+Brescia.addVehicle(electricCar);
+console.log(Brescia);
+console.log(user2);
+user2.bookVehicle(Bycicle);
+console.log(user2);
+user2.returnVehicle(electricBycicle);
+user2.returnVehicle(Bycicle);
+console.log(user2);

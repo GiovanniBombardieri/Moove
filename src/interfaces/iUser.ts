@@ -5,4 +5,5 @@ interface iUser {
   preferredPaymentMethod: string;
   vehicleBookedId: number[];
   bookVehicle(vehicle: iVehicle): void;
+  returnVehicle(vehicle: iVehicle): void;
 }
