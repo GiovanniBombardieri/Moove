@@ -3,5 +3,6 @@ interface iUser {
   surname: string;
   email: string;
   preferredPaymentMethod: string;
+  vehicleBookedId: number[];
   bookVehicle(vehicle: iVehicle): void;
 }

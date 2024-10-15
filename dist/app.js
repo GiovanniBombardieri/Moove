@@ -9,22 +9,31 @@ class Vehicle {
         this.state = state;
     }
     assignUser(user) {
-        console.log("Veicolo associato all'utente, stato del mezzo modificato 'in uso'.");
+        if (this.state === "Not Avaible") {
+            console.log(`Sorry ${user.name}, the ${this.type} is not avaible now. Let's try somethings else.`);
+        }
+        else {
+            user.vehicleBookedId.push(this.uniqueId);
+            this.state = "Not Avaible";
+            console.log(`The ${this.type} is now booked. So, it's not avaible until ${user.name} returns it.`);
+        }
     }
 }
 class User {
-    constructor(name, surname, email, preferredPaymentMethod) {
+    constructor(name, surname, email, preferredPaymentMethod, vehicleBookedId) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.preferredPaymentMethod = preferredPaymentMethod;
+        this.vehicleBookedId = vehicleBookedId;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.preferredPaymentMethod = preferredPaymentMethod;
+        this.vehicleBookedId = vehicleBookedId;
     }
     bookVehicle(vehicle) {
-        console.log("Permette all'utente di prenotare un mezzo disponibile.");
+        console.log(`Congratulations! The ${vehicle.type} is now booked for you! Enjoy you ride`);
     }
 }
 class City {
@@ -35,6 +44,92 @@ class City {
         this.avaibleVehicle = avaibleVehicle;
     }
     addVehicle(vehicle) {
-        console.log("Permette di aggiungere nuovi mezzi all'elenco dei mezzi disponibili per la città");
+        this.avaibleVehicle.push(vehicle);
+        console.log(`Now, in ${this.name} you can book your ${vehicle.type}. This is its unique ID: ${vehicle.uniqueId}.`);
     }
 }
+// Avaible Moove's Veichle
+const Bycicle = new Vehicle("Bycicle", 1000301, "Avaible");
+const Scooter = new Vehicle("Scooter", 1000302, "Avaible");
+const microScooter = new Vehicle("Micro Scooter", 1000303, "Avaible");
+const electricBycicle = new Vehicle("Electric Bycicle", 1000304, "Avaible");
+const electricCar = new Vehicle("Electric Car", 1000305, "Avaible");
+// Users registered with Moove
+const user1 = new User("Mario", "Rossi", "example@gmail.com", "GooglePay", []);
+const user2 = new User("Lucia", "Esposito", "example@icloud.com", "iPay", []);
+const user3 = new User("Elisa", "Danesi", "example@libero.com", "GooglePay", []);
+const user4 = new User("Marco", "Verdi", "email@icloud.com", "iPay", []);
+const user5 = new User("Sara", "Ferrari", "testmail@gmail.com", "GooglePay", []);
+// City where Moove works
+const Milan = new City("Milan", [
+    {
+        type: "Bycicle",
+        uniqueId: 1000301,
+        state: "Avaible",
+        assignUser(user) { },
+    },
+    {
+        type: "Scooter",
+        uniqueId: 1000302,
+        state: "Avaible",
+        assignUser(user) { },
+    },
+    {
+        type: "micro Scooter",
+        uniqueId: 1000303,
+        state: "Avaible",
+        assignUser(user) { },
+    },
+    {
+        type: "Electric Bycicle",
+        uniqueId: 1000304,
+        state: "Avaible",
+        assignUser(user) { },
+    },
+    {
+        type: "Electric Car",
+        uniqueId: 1000305,
+        state: "Avaible",
+        assignUser(user) { },
+    },
+]);
+const Brescia = new City("Brescia", [
+    {
+        type: "Scooter",
+        uniqueId: 1000302,
+        state: "Avaible",
+        assignUser(user) { },
+    },
+    {
+        type: "micro Scooter",
+        uniqueId: 1000303,
+        state: "Avaible",
+        assignUser(user) { },
+    },
+    {
+        type: "Electric Bycicle",
+        uniqueId: 1000304,
+        state: "Avaible",
+        assignUser(user) { },
+    },
+]);
+const Naples = new City("Milan", [
+    {
+        type: "Bycicle",
+        uniqueId: 1000301,
+        state: "Avaible",
+        assignUser(user) { },
+    },
+    {
+        type: "Scooter",
+        uniqueId: 1000302,
+        state: "Avaible",
+        assignUser(user) { },
+    },
+    {
+        type: "Electric Car",
+        uniqueId: 1000305,
+        state: "Avaible",
+        assignUser(user) { },
+    },
+]);
