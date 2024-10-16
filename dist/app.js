@@ -68,8 +68,13 @@ class City {
         this.avaibleVehicle = avaibleVehicle;
     }
     addVehicle(vehicle) {
-        this.avaibleVehicle.push(vehicle);
-        console.log(`Now, in ${this.name} you can book your ${vehicle.type}. This is its unique ID: ${vehicle.uniqueId}.`);
+        if (this.avaibleVehicle.includes(vehicle)) {
+            console.log(`The ${vehicle.type} is already present in this city.`);
+        }
+        else {
+            this.avaibleVehicle.push(vehicle);
+            console.log(`Now, in ${this.name} you can book your ${vehicle.type}. This is its unique ID: ${vehicle.uniqueId}.`);
+        }
     }
 }
 // Avaible Moove's Veichle
@@ -158,6 +163,7 @@ const Naples = new City("Milan", [
     },
 ]);
 console.log(Brescia);
+Brescia.addVehicle(electricCar);
 Brescia.addVehicle(electricCar);
 console.log(Brescia);
 console.log(user2);

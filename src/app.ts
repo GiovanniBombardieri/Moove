@@ -82,10 +82,14 @@ class City implements iCity {
   }
 
   addVehicle(vehicle: iVehicle): void {
-    this.avaibleVehicle.push(vehicle);
-    console.log(
-      `Now, in ${this.name} you can book your ${vehicle.type}. This is its unique ID: ${vehicle.uniqueId}.`
-    );
+    if (this.avaibleVehicle.includes(vehicle)) {
+      console.log(`The ${vehicle.type} is already present in this city.`);
+    } else {
+      this.avaibleVehicle.push(vehicle);
+      console.log(
+        `Now, in ${this.name} you can book your ${vehicle.type}. This is its unique ID: ${vehicle.uniqueId}.`
+      );
+    }
   }
 }
 
@@ -192,6 +196,7 @@ const Naples = new City("Milan", [
 ]);
 
 console.log(Brescia);
+Brescia.addVehicle(electricCar);
 Brescia.addVehicle(electricCar);
 console.log(Brescia);
 
